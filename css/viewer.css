@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Visualizador CAD 3D — moldura estilo software industrial / iCUE.
+   Isolado em .v3d. Os IDs/classes são os mesmos usados por js/viewer.js.
+   ========================================================================== */
+.v3d { --v-bg: #14161D; --v-wash: #1B1E26; --v-line: #2E3340; --v-ink: #F1F3F8; --v-soft: #B4BAC8; --v-mute: #7C8396; --v-acc: #FFDC00; --v-info: #00E5FF;
+  font-family: Inter, system-ui, sans-serif; color: var(--v-ink); }
+.v3d, .v3d * { box-sizing: border-box; }
+
+.v3d-tabs { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 0; border-bottom: 1px solid var(--v-line); background: var(--v-wash); scrollbar-width: thin; }
+.v3d-tab {
+  appearance: none; margin: 0; padding: .8rem 1.1rem; white-space: nowrap; cursor: pointer; background: none; border: 0; border-bottom: 2px solid transparent;
+  font: 700 .74rem/1 "Chakra Petch", Inter, sans-serif; text-transform: uppercase; letter-spacing: .14em; color: #8B91A1; transition: all .2s;
+}
+.v3d-tab:hover { color: #fff; }
+.v3d-tab.is-active { color: var(--v-acc); border-bottom-color: var(--v-acc); background: linear-gradient(180deg, transparent, rgba(255, 220, 0, .07)); }
+
+.v3d-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) { .v3d-grid { grid-template-columns: minmax(0, 1fr) 340px; } }
+.v3d-main, .v3d-side { min-width: 0; }
+.v3d-main { display: flex; flex-direction: column; }
+.v3d-main .viewer-wrap { flex: 1 1 auto; }
+.v3d-side { border-top: 1px solid var(--v-line); background: var(--v-bg); }
+@media (min-width: 1024px) { .v3d-side { border-top: 0; border-left: 1px solid var(--v-line); } }
+
+/* Palco */
+.viewer-wrap {
+  position: relative; height: 420px; min-height: 420px; overflow: hidden;
+  background:
+    radial-gradient(520px 320px at 50% 45%, rgba(255, 220, 0, .07), transparent 70%),
+    linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px) 0 0 / 32px 32px,
+    #0B0C10;
+}
+@media (min-width: 1024px) { .viewer-wrap { min-height: 580px; height: auto; } }
+.viewer-canvas { display: block; width: 100%; height: 100%; max-width: none; margin: 0; background: transparent; touch-action: none; cursor: grab; outline-offset: -4px; position: relative; z-index: 1; }
+.viewer-canvas:active { cursor: grabbing; }
+.viewer-status { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; text-align: center; padding: 2rem; margin: 0; color: var(--v-info); font: 600 .78rem/1.6 "JetBrains Mono", monospace; letter-spacing: .08em; text-transform: uppercase; pointer-events: none; }
+.viewer-status[hidden] { display: none; }
+.viewer-status[data-error="1"] { color: #FF334B; text-transform: none; letter-spacing: 0; }
+.viewer-hint { position: absolute; left: 14px; bottom: 12px; z-index: 2; margin: 0; font: 500 .66rem/1.4 "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .08em; color: #6B7285; pointer-events: none; }
+.viewer-corners i { position: absolute; z-index: 2; width: 18px; height: 18px; border: 0 solid rgba(255, 220, 0, .7); pointer-events: none; }
+.viewer-corners i:nth-child(1) { top: 10px; left: 10px; border-top-width: 2px; border-left-width: 2px; }
+.viewer-corners i:nth-child(2) { top: 10px; right: 10px; border-top-width: 2px; border-right-width: 2px; }
+.viewer-corners i:nth-child(3) { bottom: 10px; left: 10px; border-bottom-width: 2px; border-left-width: 2px; }
+.viewer-corners i:nth-child(4) { bottom: 10px; right: 10px; border-bottom-width: 2px; border-right-width: 2px; }
+
+/* Painel */
+.v3d-panel { padding: 1.1rem 1.25rem; border-bottom: 1px solid var(--v-line); }
+.v3d-panel > * + * { margin-top: 1.1rem; }
+.v3d-row { display: flex; align-items: baseline; justify-content: space-between; gap: .75rem; }
+.v3d-row label { font: 600 .72rem/1.4 "Chakra Petch", sans-serif; text-transform: uppercase; letter-spacing: .12em; color: var(--v-soft); margin: 0; }
+.v3d-row output { font: 700 .9rem/1.4 "JetBrains Mono", monospace; color: var(--v-acc); }
+.v3d input[type=range] { display: block; width: 100%; height: 24px; margin: 0; appearance: none; -webkit-appearance: none; background: transparent; cursor: pointer; }
+.v3d input[type=range]::-webkit-slider-runnable-track { height: 4px; background: var(--v-line); border-radius: 2px; }
+.v3d input[type=range]::-moz-range-track { height: 4px; background: var(--v-line); border-radius: 2px; }
+.v3d input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; margin-top: -6px; border-radius: 2px; background: var(--v-acc); border: 2px solid #090A0C; box-shadow: 0 0 0 1px var(--v-acc), 0 0 12px rgba(255, 220, 0, .5); }
+.v3d input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 2px; background: var(--v-acc); border: 2px solid #090A0C; }
+.v3d input[type=range]:disabled { opacity: .55; cursor: not-allowed; }
+.v3d input[type=range].range-frost::-webkit-slider-thumb { background: var(--v-info); box-shadow: 0 0 0 1px var(--v-info), 0 0 12px rgba(0, 229, 255, .5); }
+.v3d input[type=range].range-frost::-moz-range-thumb { background: var(--v-info); }
+.v3d-sync { display: flex; align-items: center; gap: .5rem; margin: .35rem 0 0; font: 500 .78rem/1.25rem Inter, sans-serif; color: var(--v-soft); cursor: pointer; }
+.v3d-sync input { margin: 0; accent-color: var(--v-acc); width: 15px; height: 15px; }
+.v3d-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.v3d-btn {
+  appearance: none; margin: 0; flex: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+  font: 700 .72rem/1.2 "Chakra Petch", sans-serif; text-transform: uppercase; letter-spacing: .12em;
+  padding: .65rem .8rem; border-radius: 4px; border: 1px solid var(--v-line); background: var(--v-wash); color: var(--v-ink); transition: all .2s;
+}
+.v3d-btn:hover { border-color: var(--v-acc); color: var(--v-acc); }
+.v3d-btn.is-active { border-color: var(--v-acc); background: rgba(255, 220, 0, .1); color: var(--v-acc); }
+
+/* Lista de peças */
+.v3d-parts { padding: 1.1rem 1.25rem 1.25rem; }
+.v3d-h3 { font: 800 .8rem/1.4 Montserrat, sans-serif; text-transform: uppercase; letter-spacing: .14em; margin: 0 0 .75rem; color: #fff; }
+#partList { list-style: none; margin: 0; padding: 0; }
+#partList > li + li { margin-top: .35rem; }
+.part-item { display: flex; align-items: center; gap: .5rem; border: 1px solid var(--v-line); border-radius: 4px; padding: .1rem .6rem .1rem .1rem; background: var(--v-wash); transition: all .2s; }
+.part-item:hover { border-color: #4A5164; }
+.part-item.is-selected { border-color: var(--v-acc); background: rgba(255, 220, 0, .08); }
+.part-pick { appearance: none; flex: 1; display: flex; align-items: center; gap: .7rem; padding: .5rem; margin: 0; text-align: left; background: none; border: 0; cursor: pointer; border-radius: 4px; color: var(--v-ink); font: inherit; }
+.part-swatch { width: 14px; height: 14px; border-radius: 2px; flex: none; box-shadow: 0 0 0 1px rgba(255, 255, 255, .18), 0 0 10px -2px currentColor; }
+.part-text { display: flex; flex-direction: column; }
+.part-name { font: 600 .84rem/1.3 Inter, sans-serif; color: var(--v-ink); }
+.part-dim { font: 600 .68rem/1.3 "JetBrains Mono", monospace; color: var(--v-info); }
+.part-vis { display: flex; align-items: center; gap: .35rem; margin: 0; font: 500 .68rem/1.3 Inter, sans-serif; color: var(--v-mute); cursor: pointer; }
+.part-vis input { margin: 0; accent-color: var(--v-acc); }
+#partInfo { margin: .85rem 0 0; min-height: 4.6rem; padding: .75rem .85rem; border-left: 2px solid var(--v-acc); background: rgba(255, 255, 255, .025); font: 400 .8rem/1.6 Inter, sans-serif; color: var(--v-soft); }
+#partInfo strong { color: #fff; font-family: "Chakra Petch", sans-serif; text-transform: uppercase; letter-spacing: .08em; }
+
+@media (prefers-reduced-motion: reduce) { .v3d * { transition: none !important; animation: none !important; } }

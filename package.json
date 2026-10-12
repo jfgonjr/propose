@@ -1,0 +1,9 @@
+{
+  "name": "central-valvula-10mm",
+  "private": true,
+  "scripts": {
+    "build": "tailwindcss -i src/input.css -o css/tailwind.css --minify",
+    "dev": "tailwindcss -i src/input.css -o css/tailwind.css --watch"
+  },
+  "devDependencies": { "tailwindcss": "3.4.17" }
+}

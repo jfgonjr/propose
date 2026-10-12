@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Central de projetos da válvula de 10 mm</title>
+<meta name="description" content="Portal técnico da válvula borboleta de 10 mm: quatro aplicações (água, CO₂, gás e purga solar), simuladores interativos, visualizador CAD 3D e os 7 arquivos STL para imprimir.">
+<meta name="theme-color" content="#090A0C">
+<meta property="og:title" content="Central de projetos da válvula de 10 mm">
+<meta property="og:description" content="Simuladores, modelo 3D e STL de uma válvula borboleta de Ø10 mm com encoder AS5600.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23090A0C'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23FFDC00' stroke-width='5'/%3E%3Crect x='29' y='10' width='6' height='44' fill='%23FFDC00' transform='rotate(35 32 32)'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tailwind.css">
+<link rel="stylesheet" href="css/viewer.css">
+</head>
+<body>
+
+<!-- Ícones (sprite) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m10 8.5 5 3.5-5 3.5z" fill="currentColor"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  </defs>
+</svg>
+
+<a href="#conteudo" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:bg-accent focus:px-3 focus:py-2 focus:font-ui focus:text-black">Ir para o conteúdo</a>
+
+<!-- ============================ HEADER ============================ -->
+<header class="sticky top-0 z-50 border-b border-edge bg-obsidian/85 backdrop-blur-md">
+  <div class="wrap flex h-16 items-center justify-between gap-4">
+    <a href="#inicio" class="group flex items-center gap-3" aria-label="Válvula 10 mm — início">
+      <svg viewBox="0 0 64 64" class="h-9 w-9 transition-all duration-200 group-hover:rotate-90" aria-hidden="true">
+        <circle cx="32" cy="32" r="22" fill="none" stroke="#FFDC00" stroke-width="5"/>
+        <rect x="29" y="8" width="6" height="48" fill="#FFDC00" transform="rotate(35 32 32)"/>
+        <circle cx="32" cy="32" r="4" fill="#090A0C"/>
+      </svg>
+      <span class="leading-none">
+        <span class="block font-display text-[1.02rem] font-black uppercase tracking-[.12em] text-white">Válvula <span class="text-accent">10&nbsp;mm</span></span>
+        <span class="mt-1 block font-ui text-[.6rem] font-semibold uppercase tracking-[.3em] text-slate-500">Central de projetos</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Principal">
+      <a class="nav-link" href="#inicio">Início</a>
+      <a class="nav-link" href="#projetos">Projetos</a>
+      <a class="nav-link" href="#plataforma">Plataforma CAD</a>
+      <a class="nav-link" href="#simuladores">Simuladores</a>
+      <a class="nav-link" href="#stl">STL</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <div class="hidden items-center gap-2.5 rounded border border-edge bg-panel px-3 py-1.5 sm:flex" role="status">
+        <span class="pulse block h-2 w-2 rounded-full bg-ok text-ok"></span>
+        <span class="font-mono text-[.66rem] font-semibold uppercase tracking-[.14em] text-slate-300">Sistema online <span class="text-slate-600">/</span> <span class="text-ok">Malha fechada</span></span>
+      </div>
+      <button id="menuBtn" class="btn btn-ghost !px-3 lg:hidden" aria-expanded="false" aria-controls="mobileNav" aria-label="Abrir menu"><svg><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+  <nav id="mobileNav" class="hidden border-t border-edge bg-panel lg:hidden" aria-label="Principal (mobile)">
+    <div class="wrap grid gap-1 py-3">
+      <a class="nav-link !py-2.5" href="#inicio">Início</a>
+      <a class="nav-link !py-2.5" href="#projetos">Projetos</a>
+      <a class="nav-link !py-2.5" href="#plataforma">Plataforma CAD</a>
+      <a class="nav-link !py-2.5" href="#simuladores">Simuladores</a>
+      <a class="nav-link !py-2.5" href="#stl">STL</a>
+      <div class="mt-2 flex items-center gap-2 font-mono text-[.66rem] font-semibold uppercase tracking-[.14em] text-slate-300 sm:hidden"><span class="block h-2 w-2 rounded-full bg-ok"></span>Sistema online / <span class="text-ok">Malha fechada</span></div>
+    </div>
+  </nav>
+</header>
+
+<main id="conteudo">
+
+<!-- ============================ HERO ============================ -->
+<section id="inicio" class="relative overflow-hidden border-b border-edge">
+  <div class="wrap grid items-center gap-10 py-14 md:py-20 lg:grid-cols-[1.05fr_.95fr] lg:gap-14">
+    <div>
+      <p class="eyebrow mb-5 flex items-center gap-3"><span class="block h-px w-10 bg-accent"></span>Central de projetos · Plataforma mecânica comum</p>
+      <h1 class="text-[2.6rem] leading-[1.02] sm:text-6xl lg:text-[4.4rem]">Válvula<br>de <span class="text-accent">10&nbsp;mm</span></h1>
+      <p class="lede mt-6 max-w-xl">Uma única válvula borboleta, quatro aplicações. Simuladores interativos, modelo CAD em 3D, firmware de referência e os arquivos STL para imprimir: água, CO₂, gás e purga solar na mesma plataforma de malha fechada.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#simuladores" class="btn btn-primary">Simuladores <svg><use href="#i-arrow"/></svg></a>
+        <a href="#plataforma" class="btn btn-ghost"><svg><use href="#i-cube"/></svg> Ver modelo 3D</a>
+        <a href="#stl" class="btn btn-ghost"><svg><use href="#i-dl"/></svg> Baixar STL</a>
+      </div>
+    </div>
+
+    <!-- Esquema animado da válvula -->
+    <div class="panel overflow-hidden" aria-hidden="true">
+      <div class="titlebar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span class="font-mono text-[.66rem] font-semibold uppercase tracking-[.16em] text-slate-500">valvula_10mm · vista lateral</span>
+        <span class="ml-auto font-mono text-[.66rem] font-semibold text-ok">● LIVE</span>
+      </div>
+      <div class="relative bg-[#0B0C10] p-4">
+        <div class="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-transparent via-accent/[.06] to-transparent scanline"></div>
+        <svg viewBox="0 0 400 200" class="relative block h-auto w-full">
+          <defs>
+            <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#2E3340" stroke-width="1"/></pattern>
+          </defs>
+          <rect x="6" y="82" width="388" height="36" fill="url(#hatch)" opacity=".5"/>
+          <rect x="6" y="82" width="388" height="36" fill="#0B0C10" opacity=".7" stroke="#3A4052"/>
+          <circle cx="200" cy="100" r="58" fill="#14161D" stroke="#3A4052" stroke-width="2"/>
+          <circle cx="200" cy="100" r="50" fill="none" stroke="#2E3340" stroke-dasharray="3 5"/>
+          <line x1="14" y1="100" x2="136" y2="100" stroke="#00E5FF" stroke-width="2.5" class="flow-line" opacity=".8"/>
+          <line x1="264" y1="100" x2="386" y2="100" stroke="#00E5FF" stroke-width="2.5" class="flow-line" opacity=".35"/>
+          <g class="hero-disc"><rect x="196" y="42" width="8" height="116" rx="1" fill="#FFDC00"/><rect x="196" y="42" width="8" height="116" rx="1" fill="none" stroke="#fff" stroke-opacity=".35"/></g>
+          <circle cx="200" cy="100" r="9" fill="#090A0C" stroke="#FFDC00" stroke-width="2"/>
+          <g font-family="JetBrains Mono, monospace" font-weight="600" font-size="9.5" fill="#00E5FF">
+            <text x="16" y="70">Ø10 mm</text><text x="276" y="38">Ø32 mm</text><text x="276" y="52" fill="#8B91A1">0–90°</text><text x="16" y="146" fill="#8B91A1">FLUXO →</text>
+          </g>
+                    <path d="M270 44 238 62" stroke="#00E5FF" stroke-width="1" opacity=".5"/>
+        </svg>
+        <div class="relative mt-3 grid grid-cols-3 gap-2 text-center">
+          <div class="stat !p-2"><div class="tele-label">Atuador</div><div class="v !text-[.8rem]">DC · N20</div></div>
+          <div class="stat !p-2"><div class="tele-label">Encoder</div><div class="v !text-[.8rem]">AS5600</div></div>
+          <div class="stat !p-2"><div class="tele-label">Velocidade</div><div class="v !text-[.8rem]">36 °/s</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech specs -->
+  <div class="wrap pb-14 md:pb-20">
+    <div class="mb-4 flex items-center justify-between">
+      <h2 class="font-ui text-[.78rem] font-bold tracking-[.2em] !text-slate-400">Especificações da plataforma</h2>
+      <span class="hidden font-mono text-[.66rem] font-semibold uppercase tracking-[.14em] text-slate-600 sm:block">Rev. A · 7 peças · STL</span>
+    </div>
+    <dl class="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div class="panel p-4 md:p-5"><dt class="tele-label">Canal de fluxo</dt><dd class="mt-3 font-mono text-2xl font-bold text-info md:text-3xl" style="text-shadow:0 0 18px rgba(0,229,255,.35)">Ø10 <span class="text-base text-slate-400">mm</span></dd><p class="mt-2 text-xs text-slate-500">Rebaixos Ø10,3 para O-rings</p></div>
+      <div class="panel p-4 md:p-5"><dt class="tele-label">Corpo (peça)</dt><dd class="mt-3 font-mono text-xl font-bold text-info md:text-2xl" style="text-shadow:0 0 18px rgba(0,229,255,.35)">88×50×36 <span class="text-base text-slate-400">mm</span></dd><p class="mt-2 text-xs text-slate-500">Montado: 88 × 50 × 62 mm</p></div>
+      <div class="panel p-4 md:p-5"><dt class="tele-label">Câmara e disco</dt><dd class="mt-3 font-mono text-2xl font-bold text-info md:text-3xl" style="text-shadow:0 0 18px rgba(0,229,255,.35)">Ø32 <span class="text-base text-slate-400">mm</span></dd><p class="mt-2 text-xs text-slate-500">Giro de 0° a 90°</p></div>
+      <div class="panel p-4 md:p-5"><dt class="tele-label">Encoder magnético</dt><dd class="mt-3 font-mono text-2xl font-bold text-info md:text-3xl" style="text-shadow:0 0 18px rgba(0,229,255,.35)">12 <span class="text-base text-slate-400">bits</span></dd><p class="mt-2 text-xs text-slate-500">AS5600 · ≈ 0,088° por passo</p></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============================ COMO FUNCIONA ============================ -->
+<section class="border-b border-edge py-14 md:py-20" aria-labelledby="h-malha">
+  <div class="wrap">
+    <p class="eyebrow mb-3">Malha fechada</p>
+    <h2 id="h-malha" class="h-sec max-w-2xl">Sentir. Decidir. Agir. Avisar.</h2>
+    <ol class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <li class="panel p-5"><span class="num text-3xl text-accent/90">01</span><h3 class="mt-3 text-sm tracking-[.14em]">Sentir</h3><p class="mt-2 text-sm leading-relaxed text-slate-400">Um sensor mede vazão, CO₂, presença ou temperatura.</p></li>
+      <li class="panel p-5"><span class="num text-3xl text-accent/90">02</span><h3 class="mt-3 text-sm tracking-[.14em]">Decidir</h3><p class="mt-2 text-sm leading-relaxed text-slate-400">O microcontrolador aplica a regra de cada aplicação.</p></li>
+      <li class="panel p-5"><span class="num text-3xl text-accent/90">03</span><h3 class="mt-3 text-sm tracking-[.14em]">Agir</h3><p class="mt-2 text-sm leading-relaxed text-slate-400">Motor DC e ponte H giram o disco de 0° a 90°. O AS5600 confere a posição.</p></li>
+      <li class="panel p-5"><span class="num text-3xl text-accent/90">04</span><h3 class="mt-3 text-sm tracking-[.14em]">Avisar</h3><p class="mt-2 text-sm leading-relaxed text-slate-400">LED, buzzer, serial ou rede informam o estado.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================ PROJETOS ============================ -->
+<section id="projetos" class="border-b border-edge py-14 md:py-20" aria-labelledby="h-proj">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="eyebrow mb-3">Dispositivos</p>
+        <h2 id="h-proj" class="h-sec">Projetos</h2>
+        <p class="lede mt-3 max-w-xl">Quatro aplicações sobre a mesma plataforma mecânica. Cada uma tem simulador, modelo 3D e firmware de referência.</p>
+      </div>
+      <div class="relative w-full sm:w-72">
+        <label for="busca" class="sr-only">Buscar projetos</label>
+        <svg class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"><use href="#i-search"/></svg>
+        <input id="busca" type="search" placeholder="BUSCAR PROJETO…" autocomplete="off" class="w-full rounded border border-edge bg-panel py-2.5 pl-10 pr-3 font-ui text-xs font-semibold uppercase tracking-[.12em] text-slate-200 placeholder:text-slate-600 transition-all duration-200 hover:border-slate-500 focus:border-accent focus:outline-none">
+      </div>
+    </div>
+
+    <div class="mt-6 flex flex-wrap items-center gap-2" role="group" aria-label="Filtros">
+      <button class="btn btn-ghost is-active" data-filter="all" aria-pressed="true">Todos</button>
+      <button class="btn btn-ghost" data-filter="liquidos" aria-pressed="false">Líquidos</button>
+      <button class="btn btn-ghost" data-filter="gases" aria-pressed="false">Ar e gases</button>
+      <button class="btn btn-ghost" data-filter="seguranca" aria-pressed="false">Segurança</button>
+      <button class="btn btn-ghost" data-filter="solar" aria-pressed="false">Energia solar</button>
+      <span id="contador" class="ml-auto font-mono text-xs font-semibold uppercase tracking-[.14em] text-info" role="status" aria-live="polite">4 projetos</span>
+    </div>
+
+    <div id="cards" class="mt-6 grid gap-4 md:grid-cols-2">
+
+      <article class="panel panel-hover flex flex-col" data-cat="liquidos seguranca" data-name="vazamento de água pré-alarme rearme yf-s201">
+        <div class="flex items-start justify-between gap-3 border-b border-edge px-5 pb-4 pt-5">
+          <div><p class="font-mono text-[.66rem] font-semibold tracking-[.18em] text-slate-500">DEV-01 · LÍQUIDOS</p><h3 class="mt-2 text-lg">Vazamento de água</h3></div>
+          <div class="flex flex-wrap justify-end gap-1.5"><span class="badge b-danger"><i></i>Segurança</span></div>
+        </div>
+        <div class="flex-1 px-5 py-4">
+          <p class="text-sm leading-relaxed text-slate-400">Compara a vazão de entrada e a de saída. Se a diferença persiste, dispara um pré-alarme de 60 s e fecha a válvula, com rearme seguro.</p>
+          <dl class="mt-4 grid grid-cols-3 gap-2">
+            <div class="stat !p-2.5"><dt class="tele-label">Pré-alarme</dt><dd class="tele mt-1">60 s</dd></div>
+            <div class="stat !p-2.5"><dt class="tele-label">Rearme</dt><dd class="tele mt-1">3 s</dd></div>
+            <div class="stat !p-2.5"><dt class="tele-label">YF-S201</dt><dd class="tele mt-1">450 p/L</dd></div>
+          </dl>
+        </div>
+        <div class="flex flex-wrap gap-2 border-t border-edge bg-black/20 px-5 py-4">
+          <a href="#simuladores" data-sim="agua" class="btn btn-primary"><svg><use href="#i-play"/></svg>Simulador</a>
+          <a href="#plataforma" class="btn btn-ghost"><svg><use href="#i-cube"/></svg>Modelo 3D</a>
+          <a href="https://github.com/jfgonjr/controlador-de-fluido-10mm/" target="_blank" rel="noopener" class="btn btn-ghost"><svg><use href="#i-chip"/></svg>Firmware</a>
+        </div>
+      </article>
+
+      <article class="panel panel-hover flex flex-col" data-cat="gases" data-name="damper de co₂ estufas vpd ndir fail-safe">
+        <div class="flex items-start justify-between gap-3 border-b border-edge px-5 pb-4 pt-5">
+          <div><p class="font-mono text-[.66rem] font-semibold tracking-[.18em] text-slate-500">DEV-02 · AR E GASES</p><h3 class="mt-2 text-lg">Damper de CO₂</h3></div>
+          <div class="flex flex-wrap justify-end gap-1.5"><span class="badge b-ok"><i></i>Estufas</span></div>
+        </div>
+        <div class="flex-1 px-5 py-4">
+          <p class="text-sm leading-relaxed text-slate-400">Renovação proporcional do ar a partir da leitura NDIR de CO₂, com cálculo de VPD e fail-safe biológico se o sensor falhar.</p>
+          <dl class="mt-4 grid grid-cols-3 gap-2">
+            <div class="stat !p-2.5"><dt class="tele-label">Passo</dt><dd class="tele mt-1">15°</dd></div>
+            <div class="stat !p-2.5"><dt class="tele-label">Faixa</dt><dd class="tele mt-1">600–1200</dd></div>
+            <div class="stat !p-2.5"><dt class="tele-label">Falha</dt><dd class="tele mt-1">45° / 10 s</dd></div>
+          </dl>
+        </div>
+        <div class="flex flex-wrap gap-2 border-t border-edge bg-black/20 px-5 py-4">
+          <a href="#simuladores" data-sim="co2" class="btn btn-primary"><svg><use href="#i-play"/></svg>Simulador</a>
+          <a href="#plataforma" class="btn btn-ghost"><svg><use href="#i-cube"/></svg>Modelo 3D</a>
+          <a href="https://github.com/jfgonjr/controlador-de-fluido-10mm/" target="_blank" rel="noopener" class="btn btn-ghost"><svg><use href="#i-chip"/></svg>Firmware</a>
+        </div>
+      </article>
+
+      <article class="panel panel-hover flex flex-col" data-cat="gases seguranca" data-name="corte de gás emergência presença pir">
+        <div class="flex items-start justify-between gap-3 border-b border-edge px-5 pb-4 pt-5">
+          <div><p class="font-mono text-[.66rem] font-semibold tracking-[.18em] text-slate-500">DEV-03 · AR E GASES</p><h3 class="mt-2 text-lg">Corte de gás</h3></div>
+          <div class="flex flex-wrap justify-end gap-1.5"><span class="badge b-danger"><i></i>Segurança</span></div>
+        </div>
+        <div class="flex-1 px-5 py-4">
+          <p class="text-sm leading-relaxed text-slate-400">Corte com decisão imediata por presença (PIR) ou botão de emergência. A reabertura é negada enquanto houver presença.</p>
+          <dl class="mt-4 grid grid-cols-3 gap-2">
+            <div class="stat !p-2.5"><dt class="tele-label">Decisão</dt><dd class="tele mt-1">0 s</dd></div>
+            <div class="stat !p-2.5"><dt class="tele-label">Fechamento</dt><dd class="tele mt-1">≈ 2,5 s</dd></div>
+            <div class="stat !p-2.5"><dt class="tele-label">Rearme</dt><dd class="tele mt-1">3 s</dd></div>
+          </dl>
+        </div>
+        <div class="flex flex-wrap gap-2 border-t border-edge bg-black/20 px-5 py-4">
+          <a href="#simuladores" data-sim="gas" class="btn btn-primary"><svg><use href="#i-play"/></svg>Simulador</a>
+          <a href="#plataforma" class="btn btn-ghost"><svg><use href="#i-cube"/></svg>Modelo 3D</a>
+          <a href="https://github.com/jfgonjr/controlador-de-fluido-10mm/" target="_blank" rel="noopener" class="btn btn-ghost"><svg><use href="#i-chip"/></svg>Firmware</a>
+        </div>
+      </article>
+
+      <article class="panel panel-hover flex flex-col" data-cat="liquidos solar" data-name="purga solar congelamento ds18b20 energia solar drenagem">
+        <div class="flex items-start justify-between gap-3 border-b border-edge px-5 pb-4 pt-5">
+          <div><p class="font-mono text-[.66rem] font-semibold tracking-[.18em] text-slate-500">DEV-04 · LÍQUIDOS</p><h3 class="mt-2 text-lg">Purga solar</h3></div>
+          <div class="flex flex-wrap justify-end gap-1.5"><span class="badge b-accent"><i></i>Energia solar</span></div>
+        </div>
+        <div class="flex-1 px-5 py-4">
+          <p class="text-sm leading-relaxed text-slate-400">Drena a tubulação em pulsos antes do congelamento, só na janela noturna, com sensor DS18B20 no ponto mais frio.</p>
+          <dl class="mt-4 grid grid-cols-3 gap-2">
+            <div class="stat !p-2.5"><dt class="tele-label">Limiar</dt><dd class="tele mt-1">&lt; 3 °C</dd></div>
+            <div class="stat !p-2.5"><dt class="tele-label">Janela</dt><dd class="tele mt-1">22h–06h</dd></div>
+            <div class="stat !p-2.5"><dt class="tele-label">Pulso</dt><dd class="tele mt-1">30 s</dd></div>
+          </dl>
+        </div>
+        <div class="flex flex-wrap gap-2 border-t border-edge bg-black/20 px-5 py-4">
+          <a href="#simuladores" data-sim="solar" class="btn btn-primary"><svg><use href="#i-play"/></svg>Simulador</a>
+          <a href="#plataforma" class="btn btn-ghost"><svg><use href="#i-cube"/></svg>Modelo 3D</a>
+          <a href="https://github.com/jfgonjr/controlador-de-fluido-10mm/" target="_blank" rel="noopener" class="btn btn-ghost"><svg><use href="#i-chip"/></svg>Firmware</a>
+        </div>
+      </article>
+    </div>
+    <p id="vazio" class="panel mt-4 hidden p-8 text-center font-ui text-sm uppercase tracking-[.14em] text-slate-500">Nenhum projeto encontrado.</p>
+  </div>
+</section>
+
+<!-- ============================ PLATAFORMA CAD ============================ -->
+<section id="plataforma" class="border-b border-edge py-14 md:py-20" aria-labelledby="h-cad">
+  <div class="wrap">
+    <p class="eyebrow mb-3">Visualizador CAD</p>
+    <h2 id="h-cad" class="h-sec">Plataforma mecânica comum</h2>
+    <p class="lede mt-3 max-w-2xl">As 7 peças são os STL reais do projeto. Arraste para girar, explode a montagem, clique numa peça para ver a descrição e escolha uma aba para destacar um subsistema.</p>
+
+    <div class="panel mt-8 overflow-hidden">
+      <div class="titlebar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span class="font-mono text-[.66rem] font-semibold uppercase tracking-[.16em] text-slate-400">CAD · vista explodida</span>
+        <span class="ml-auto hidden font-mono text-[.66rem] font-semibold uppercase tracking-[.14em] text-slate-600 sm:block">7 peças · three.js r128</span>
+      </div>
+      <div class="v3d">
+        <div class="v3d-tabs" role="tablist" aria-label="Subsistemas">
+          <button type="button" class="v3d-tab is-active" role="tab" aria-selected="true" data-view="conjunto">Conjunto</button>
+          <button type="button" class="v3d-tab" role="tab" aria-selected="false" data-view="camara">Câmara de 32 mm</button>
+          <button type="button" class="v3d-tab" role="tab" aria-selected="false" data-view="canal">Canal de 10 mm</button>
+          <button type="button" class="v3d-tab" role="tab" aria-selected="false" data-view="encoder">AS5600 + eixo</button>
+          <button type="button" class="v3d-tab" role="tab" aria-selected="false" data-view="caixa">Caixa eletrônica</button>
+        </div>
+        <div class="v3d-grid">
+          <div class="v3d-main">
+            <div id="viewerCanvasWrap" class="viewer-wrap">
+              <div class="viewer-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+              <div id="viewerStatus" class="viewer-status" role="status">Carregando CAD · 7 peças…</div>
+              <p class="viewer-hint">Arraste: girar · Pinça / Ctrl + roda: zoom · Clique: peça</p>
+            </div>
+          </div>
+          <div class="v3d-side">
+            <div class="v3d-panel">
+              <div>
+                <div class="v3d-row"><label for="explodeRange">Explodir</label><output id="explodeOut" for="explodeRange">0%</output></div>
+                <input id="explodeRange" type="range" min="0" max="100" step="1" value="0">
+              </div>
+              <div>
+                <div class="v3d-row"><label for="viewerAngle">Ângulo da válvula</label><output id="viewerAngleOut" for="viewerAngle">0°</output></div>
+                <input id="viewerAngle" type="range" min="0" max="90" step="1" value="0" class="range-frost" disabled>
+                <label class="v3d-sync"><input id="syncSim" type="checkbox" checked> Seguir o simulador</label>
+              </div>
+              <div class="v3d-actions">
+                <button type="button" id="autoRotate" class="v3d-btn" aria-pressed="false">Girar sozinho</button>
+                <button type="button" id="resetView" class="v3d-btn">Recentralizar</button>
+              </div>
+            </div>
+            <div class="v3d-parts">
+              <h3 class="v3d-h3">Peças do STL</h3>
+              <ul id="partList"></ul>
+              <p id="partInfo" aria-live="polite"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SIMULADORES ============================ -->
+<section id="simuladores" class="border-b border-edge py-14 md:py-20" aria-labelledby="h-sim">
+  <div class="wrap">
+    <p class="eyebrow mb-3">Simuladores interativos</p>
+    <h2 id="h-sim" class="h-sec">Teste a lógica de cada aplicação</h2>
+    <p class="lede mt-3 max-w-2xl">Mova os controles e veja a válvula reagir. Com “Seguir o simulador” ligado, o modelo 3D acima gira junto com o disco da aplicação ativa.</p>
+
+    <div class="panel mt-8 overflow-hidden">
+      <div class="titlebar !pb-0 !pt-0 !px-0 !gap-0">
+        <div class="hidden items-center gap-3 px-4 sm:flex"><div class="dots"><i></i><i></i><i></i></div></div>
+        <div class="flex min-w-0 flex-1 overflow-x-auto" role="tablist" aria-label="Simuladores">
+          <button class="tab" role="tab" id="tab-agua" aria-selected="true" aria-controls="sim-agua" data-tab="agua">Água</button>
+          <button class="tab" role="tab" id="tab-co2" aria-selected="false" aria-controls="sim-co2" data-tab="co2" tabindex="-1">CO₂</button>
+          <button class="tab" role="tab" id="tab-gas" aria-selected="false" aria-controls="sim-gas" data-tab="gas" tabindex="-1">Gás</button>
+          <button class="tab" role="tab" id="tab-solar" aria-selected="false" aria-controls="sim-solar" data-tab="solar" tabindex="-1">Purga solar</button>
+        </div>
+      </div>
+
+      <!-- ===== ÁGUA ===== -->
+      <div id="sim-agua" role="tabpanel" aria-labelledby="tab-agua" data-panel="agua" class="grid gap-0 lg:grid-cols-[1.15fr_1fr]">
+        <div class="border-b border-edge p-5 lg:border-b-0 lg:border-r">
+          <div data-scope="agua" data-fluid="#00E676" data-leak="1"></div>
+          <div class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <div class="stat" data-s="agua.valve"><div class="tele-label">Válvula</div><div class="v">—</div></div>
+            <div class="stat" data-s="agua.pre"><div class="tele-label">Pré-alarme</div><div class="v">—</div></div>
+            <div class="stat" data-s="agua.diff"><div class="tele-label">Diferença</div><div class="v">—</div></div>
+            <div class="stat" data-s="agua.eeprom"><div class="tele-label">EEPROM</div><div class="v">—</div></div>
+            <div class="stat" data-s="agua.s1"><div class="tele-label">Sensor 1 · entrada</div><div class="v">—</div></div>
+            <div class="stat" data-s="agua.s2"><div class="tele-label">Sensor 2 · saída</div><div class="v">—</div></div>
+            <div class="stat col-span-2" data-s="agua.led"><div class="tele-label">LED / Buzzer</div><div class="v">—</div></div>
+          </div>
+        </div>
+        <div class="space-y-5 p-5">
+          <div><label class="field-label" for="agua-q1">Sensor 1 · entrada <output id="agua-q1-o"></output></label><input id="agua-q1" class="range" type="range" min="0" max="30" step="0.5" value="12" data-unit=" L/min" data-dec="1"></div>
+          <div><label class="field-label" for="agua-q2">Sensor 2 · saída <output id="agua-q2-o"></output></label><input id="agua-q2" class="range" type="range" min="0" max="30" step="0.5" value="12" data-unit=" L/min" data-dec="1"></div>
+          <div><label class="field-label" for="agua-lim">Limiar de tolerância <output id="agua-lim-o"></output></label><input id="agua-lim" class="range" type="range" min="0.5" max="5" step="0.5" value="2" data-unit=" L/min" data-dec="1"></div>
+          <div class="grid gap-3 sm:grid-cols-2">
+            <div><label class="field-label mb-1.5" for="agua-mode">Modo de resposta</label><select id="agua-mode" class="select"><option value="pre">Pré-alarme de 60 s (protótipo)</option><option value="now">Corte imediato (artigos)</option></select></div>
+            <div><label class="field-label mb-1.5" for="agua-speed">Velocidade do tempo</label><select id="agua-speed" class="select"><option value="1">1×</option><option value="10">10×</option></select></div>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-1">
+            <button class="btn btn-danger" id="agua-leak" type="button">Simular vazamento</button>
+            <button class="btn btn-ghost" id="agua-fix" type="button">Consertar</button>
+            <button class="btn btn-primary" id="agua-rearm" type="button" data-hold="3000">Rearmar · segurar 3 s</button>
+          </div>
+          <div class="h-1 overflow-hidden rounded bg-edge" aria-hidden="true"><div id="agua-hold" class="h-full w-0 bg-accent"></div></div>
+          <p id="agua-msg" class="min-h-[1.25rem] font-mono text-xs font-semibold text-accent" role="status" aria-live="polite"></p>
+          <p class="text-xs leading-relaxed text-slate-500">Vazamento confirmado por 2 s de diferença acima do limiar inicia o pré-alarme (LED e buzzer). Se cessar, a contagem é cancelada. Se persistir, a válvula fecha e trava, com o estado gravado na EEPROM. O rearme exige segurar o botão por 3 s e só vale após o fim do vazamento.</p>
+        </div>
+      </div>
+
+      <!-- ===== CO2 ===== -->
+      <div id="sim-co2" role="tabpanel" aria-labelledby="tab-co2" data-panel="co2" class="hidden grid gap-0 lg:grid-cols-[1.15fr_1fr]" hidden>
+        <div class="border-b border-edge p-5 lg:border-b-0 lg:border-r">
+          <div data-scope="co2" data-fluid="#00E5FF"></div>
+          <div class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <div class="stat" data-s="co2.ppm"><div class="tele-label">CO₂</div><div class="v">—</div></div>
+            <div class="stat" data-s="co2.ang"><div class="tele-label">Ângulo alvo</div><div class="v">—</div></div>
+            <div class="stat" data-s="co2.q"><div class="tele-label">Vazão equivalente</div><div class="v">—</div></div>
+            <div class="stat" data-s="co2.fan"><div class="tele-label">Exaustor 12 V</div><div class="v">—</div></div>
+            <div class="stat" data-s="co2.ach"><div class="tele-label">Trocas de ar</div><div class="v">—</div></div>
+            <div class="stat" data-s="co2.sensor"><div class="tele-label">Sensor NDIR</div><div class="v">—</div></div>
+            <div class="stat" data-s="co2.vpd"><div class="tele-label">VPD</div><div class="v">—</div></div>
+            <div class="stat" data-s="co2.vpdr"><div class="tele-label">Faixa-alvo</div><div class="v">—</div></div>
+          </div>
+          <div class="mt-4 rounded border border-edge bg-obsidian/60 p-3">
+            <div class="tele-label mb-2">Ângulo × CO₂ (degraus de 15°)</div>
+            <svg id="co2-chart" viewBox="0 0 300 110" class="block h-auto w-full" role="img" aria-label="Curva de ângulo em função do CO₂"></svg>
+          </div>
+        </div>
+        <div class="space-y-5 p-5">
+          <div><label class="field-label" for="co2-ppm">Concentração de CO₂ <output id="co2-ppm-o"></output></label><input id="co2-ppm" class="range" type="range" min="400" max="2000" step="10" value="700" data-unit=" ppm" data-dec="0"></div>
+          <div class="flex flex-wrap gap-2" role="group" aria-label="Predefinições de CO₂">
+            <button class="btn btn-ghost !px-3 !py-2" type="button" data-set="co2-ppm:420">Ar externo</button>
+            <button class="btn btn-ghost !px-3 !py-2" type="button" data-set="co2-ppm:800">Sala</button>
+            <button class="btn btn-ghost !px-3 !py-2" type="button" data-set="co2-ppm:1200">Limite</button>
+            <button class="btn btn-ghost !px-3 !py-2" type="button" data-set="co2-ppm:2000">Crítico</button>
+          </div>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div><label class="field-label" for="co2-t">Temperatura <output id="co2-t-o"></output></label><input id="co2-t" class="range" type="range" min="10" max="40" step="0.5" value="25" data-unit=" °C" data-dec="1"></div>
+            <div><label class="field-label" for="co2-rh">Umidade relativa <output id="co2-rh-o"></output></label><input id="co2-rh" class="range" type="range" min="20" max="100" step="1" value="70" data-unit=" %" data-dec="0"></div>
+            <div><label class="field-label" for="co2-vol">Volume do ambiente <output id="co2-vol-o"></output></label><input id="co2-vol" class="range" type="range" min="0.2" max="5" step="0.1" value="0.5" data-unit=" m³" data-dec="1"></div>
+            <div><label class="field-label" for="co2-qmax">Vazão máx. do exaustor <output id="co2-qmax-o"></output></label><input id="co2-qmax" class="range" type="range" min="5" max="120" step="5" value="30" data-unit=" m³/h" data-dec="0"></div>
+          </div>
+          <div><label class="field-label mb-1.5" for="co2-prof">Perfil (faixa de VPD)</label><select id="co2-prof" class="select"><option value="0.4,0.8,Terrário">Terrário · 0,4–0,8 kPa</option><option value="0.8,1.2,Vegetativa" selected>Estufa vegetativa · 0,8–1,2 kPa</option><option value="1.2,1.5,Floração">Floração · 1,2–1,5 kPa</option></select></div>
+          <div class="flex flex-wrap gap-2 pt-1"><button class="btn btn-danger" id="co2-fail" type="button" aria-pressed="false">Falha do sensor</button></div>
+          <p class="text-xs leading-relaxed text-slate-500">Abertura em degraus de 15° (0° a 90°), proporcional entre 600 e 1200 ppm, com histerese de 50 ppm. Acima do nível crítico liga o exaustor de 12 V. Se o sensor falhar por 10 s, o damper vai para 45° e o exaustor fica desligado (fail-safe biológico). Modelo didático: área livre = 1 − cos θ e 10% de vazão por convecção passiva como hipótese.</p>
+        </div>
+      </div>
+
+      <!-- ===== GÁS ===== -->
+      <div id="sim-gas" role="tabpanel" aria-labelledby="tab-gas" data-panel="gas" class="hidden grid gap-0 lg:grid-cols-[1.15fr_1fr]" hidden>
+        <div class="border-b border-edge p-5 lg:border-b-0 lg:border-r">
+          <div data-scope="gas" data-fluid="#FF334B"></div>
+          <div class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <div class="stat" data-s="gas.valve"><div class="tele-label">Válvula</div><div class="v">—</div></div>
+            <div class="stat" data-s="gas.dec"><div class="tele-label">Decisão de corte</div><div class="v">—</div></div>
+            <div class="stat" data-s="gas.pres"><div class="tele-label">Presença</div><div class="v">—</div></div>
+            <div class="stat" data-s="gas.eeprom"><div class="tele-label">EEPROM</div><div class="v">—</div></div>
+            <div class="stat col-span-2" data-s="gas.led"><div class="tele-label">LEDs</div><div class="v">—</div></div>
+            <div class="stat col-span-2" data-s="gas.buz"><div class="tele-label">Buzzer</div><div class="v">—</div></div>
+          </div>
+          <p id="gas-msg" class="mt-3 min-h-[1.5rem] font-mono text-xs font-semibold text-accent" role="status" aria-live="polite"></p>
+        </div>
+        <div class="space-y-5 p-5">
+          <div class="grid grid-cols-2 gap-2">
+            <button class="btn btn-ghost" id="gas-open" type="button">Abrir válvula</button>
+            <button class="btn btn-ghost" id="gas-pir" type="button">Detectar movimento</button>
+            <button class="btn btn-danger" id="gas-emerg" type="button">Emergência</button>
+            <button class="btn btn-ghost" id="gas-presence" type="button" aria-pressed="false">Presença contínua</button>
+          </div>
+          <button class="btn btn-primary w-full" id="gas-rearm" type="button" data-hold="3000">Rearmar · segurar 3 s</button>
+          <div class="h-1 overflow-hidden rounded bg-edge" aria-hidden="true"><div id="gas-hold" class="h-full w-0 bg-accent"></div></div>
+          <p class="text-xs leading-relaxed text-slate-500">O corte acontece na mesma iteração do <span class="font-mono text-slate-300">loop()</span>, sem atraso de decisão. Movimento (PIR) ou botão de emergência fecham a válvula a 0°. A reabertura é negada enquanto houver presença, e o bloqueio fica gravado na EEPROM, com rearme por 3 s sem presença. Fechamento mecânico em cerca de 2,5 s a 36°/s.</p>
+          <div class="flex gap-3 rounded border border-danger/40 bg-danger/10 p-4">
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-danger"><use href="#i-warn"/></svg>
+            <p class="text-xs leading-relaxed text-slate-300"><strong class="font-ui uppercase tracking-[.12em] text-danger">Aviso de segurança.</strong> Um disco de 3 mm em câmara de Ø32 mm não veda gás. Use junta elastomérica, teste de estanqueidade e uma eletroválvula certificada normalmente fechada em série. Escovas de motor DC podem ser fonte de ignição. Sem energia, a válvula permanece na posição atual. Sensores MQ servem só para protótipo, não são certificados.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SOLAR ===== -->
+      <div id="sim-solar" role="tabpanel" aria-labelledby="tab-solar" data-panel="solar" class="hidden grid gap-0 lg:grid-cols-[1.15fr_1fr]" hidden>
+        <div class="border-b border-edge p-5 lg:border-b-0 lg:border-r">
+          <div data-scope="solar" data-fluid="#FFDC00"></div>
+          <div class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <div class="stat" data-s="solar.valve"><div class="tele-label">Válvula</div><div class="v">—</div></div>
+            <div class="stat" data-s="solar.purge"><div class="tele-label">Tempo de purga</div><div class="v">—</div></div>
+            <div class="stat" data-s="solar.next"><div class="tele-label">Próxima purga</div><div class="v">—</div></div>
+            <div class="stat" data-s="solar.win"><div class="tele-label">Janela noturna</div><div class="v">—</div></div>
+            <div class="stat" data-s="solar.temp"><div class="tele-label">DS18B20</div><div class="v">—</div></div>
+            <div class="stat" data-s="solar.count"><div class="tele-label">Purgas</div><div class="v">—</div></div>
+            <div class="stat col-span-2" data-s="solar.water"><div class="tele-label">Água usada (hipótese)</div><div class="v">—</div></div>
+          </div>
+          <div class="mt-4 rounded border border-edge bg-obsidian/60 p-3">
+            <div class="tele-label mb-2">Ângulo da válvula · últimos 120 s</div>
+            <svg id="solar-chart" viewBox="0 0 300 80" class="block h-auto w-full" role="img" aria-label="Gráfico do ângulo nos últimos 120 segundos"></svg>
+          </div>
+        </div>
+        <div class="space-y-5 p-5">
+          <div><label class="field-label" for="solar-t">Temperatura no ponto mais frio <output id="solar-t-o"></output></label><input id="solar-t" class="range" type="range" min="-5" max="15" step="0.5" value="8" data-unit=" °C" data-dec="1"></div>
+          <div class="flex flex-wrap gap-2" role="group" aria-label="Predefinições de temperatura">
+            <button class="btn btn-ghost !px-3 !py-2" type="button" data-set="solar-t:-5">−5 °C</button>
+            <button class="btn btn-ghost !px-3 !py-2" type="button" data-set="solar-t:0">0 °C</button>
+            <button class="btn btn-ghost !px-3 !py-2" type="button" data-set="solar-t:2">2 °C</button>
+            <button class="btn btn-ghost !px-3 !py-2" type="button" data-set="solar-t:10">10 °C</button>
+          </div>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div><label class="field-label" for="solar-thr">Limiar de purga <output id="solar-thr-o"></output></label><input id="solar-thr" class="range" type="range" min="0.5" max="6" step="0.5" value="3" data-unit=" °C" data-dec="1"></div>
+            <div><label class="field-label" for="solar-h">Hora do dia (RTC) <output id="solar-h-o"></output></label><input id="solar-h" class="range" type="range" min="0" max="23.5" step="0.5" value="23" data-unit="" data-dec="1" data-fmt="hour"></div>
+          </div>
+          <div><label class="field-label mb-1.5" for="solar-speed">Velocidade do tempo</label><select id="solar-speed" class="select"><option value="1">1× (tempo real)</option><option value="10" selected>10×</option><option value="60">60×</option></select></div>
+          <div class="flex flex-wrap gap-2 pt-1">
+            <button class="btn btn-primary" id="solar-manual" type="button">Purga manual</button>
+            <button class="btn btn-ghost" id="solar-reset" type="button">Reiniciar</button>
+          </div>
+          <p class="text-xs leading-relaxed text-slate-500">O DS18B20 impermeável fica no ponto mais frio da tubulação externa. O RTC DS3231 limita a atuação à janela de 22h às 6h. Abaixo de 3 °C a válvula abre a 90° por 30 s, com intervalo mínimo de 30 min entre purgas. O limiar tem folga acima de 0 °C porque o gelo ocupa cerca de 9% a mais de volume. O volume de 4 L/min (≈ 2 L por pulso de 30 s) é hipótese didática.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ STL ============================ -->
+<section id="stl" class="py-14 md:py-20" aria-labelledby="h-stl">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="eyebrow mb-3">Arquivos para imprimir</p>
+        <h2 id="h-stl" class="h-sec">Tabela de arquivos STL</h2>
+        <p class="lede mt-3 max-w-xl">As mesmas 7 peças do visualizador, em STL binário, na posição de montagem.</p>
+      </div>
+      <a href="stl/valvula-10mm-stl.zip" download class="btn btn-primary"><svg><use href="#i-dl"/></svg>Baixar todos (.zip)</a>
+    </div>
+
+    <div class="panel mt-8 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="stl-table w-full min-w-[640px]">
+          <thead class="border-b border-edge bg-panel2">
+            <tr><th scope="col" class="w-14">#</th><th scope="col">Arquivo</th><th scope="col">Descrição</th><th scope="col">Dimensões</th><th scope="col" class="text-right">Tamanho</th><th scope="col" class="w-20 text-right"><span class="sr-only">Download</span></th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="num text-slate-500">01</td><td class="font-mono text-[.8rem] font-semibold text-white">corpo.stl</td><td class="text-slate-400">Canal Ø10, câmara Ø32, 4× M4</td><td class="tele">88 × 50 × 36 mm</td><td class="tele text-right !text-slate-300">94,5 KB</td><td class="text-right"><a class="dl" href="stl/corpo.stl" download aria-label="Baixar corpo.stl"><svg class="h-4 w-4"><use href="#i-dl"/></svg></a></td></tr>
+            <tr><td class="num text-slate-500">02</td><td class="font-mono text-[.8rem] font-semibold text-white">obturador.stl</td><td class="text-slate-400">Disco da borboleta</td><td class="tele">Ø32 × 3 mm</td><td class="tele text-right !text-slate-300">8,1 KB</td><td class="text-right"><a class="dl" href="stl/obturador.stl" download aria-label="Baixar obturador.stl"><svg class="h-4 w-4"><use href="#i-dl"/></svg></a></td></tr>
+            <tr><td class="num text-slate-500">03</td><td class="font-mono text-[.8rem] font-semibold text-white">eixo.stl</td><td class="text-slate-400">Leva o ímã do AS5600</td><td class="tele">Ø6 × 43 mm</td><td class="tele text-right !text-slate-300">5,7 KB</td><td class="text-right"><a class="dl" href="stl/eixo.stl" download aria-label="Baixar eixo.stl"><svg class="h-4 w-4"><use href="#i-dl"/></svg></a></td></tr>
+            <tr><td class="num text-slate-500">04</td><td class="font-mono text-[.8rem] font-semibold text-white">caixa_eletronica.stl</td><td class="text-slate-400">Três passagens Ø7</td><td class="tele">68 × 48 × 22 mm</td><td class="tele text-right !text-slate-300">40,9 KB</td><td class="text-right"><a class="dl" href="stl/caixa_eletronica.stl" download aria-label="Baixar caixa_eletronica.stl"><svg class="h-4 w-4"><use href="#i-dl"/></svg></a></td></tr>
+            <tr><td class="num text-slate-500">05</td><td class="font-mono text-[.8rem] font-semibold text-white">placa_sensores.stl</td><td class="text-slate-400">AS5600 sobre o eixo</td><td class="tele">54 × 34 × 3 mm</td><td class="tele text-right !text-slate-300">21,8 KB</td><td class="text-right"><a class="dl" href="stl/placa_sensores.stl" download aria-label="Baixar placa_sensores.stl"><svg class="h-4 w-4"><use href="#i-dl"/></svg></a></td></tr>
+            <tr><td class="num text-slate-500">06</td><td class="font-mono text-[.8rem] font-semibold text-white">junta.stl</td><td class="text-slate-400">Junta de vedação</td><td class="tele">62 × 42 × 1 mm</td><td class="tele text-right !text-slate-300">1,6 KB</td><td class="text-right"><a class="dl" href="stl/junta.stl" download aria-label="Baixar junta.stl"><svg class="h-4 w-4"><use href="#i-dl"/></svg></a></td></tr>
+            <tr><td class="num text-slate-500">07</td><td class="font-mono text-[.8rem] font-semibold text-white">tampa.stl</td><td class="text-slate-400">4 furos de fixação</td><td class="tele">68 × 48 × 6 mm</td><td class="tele text-right !text-slate-300">22,5 KB</td><td class="text-right"><a class="dl" href="stl/tampa.stl" download aria-label="Baixar tampa.stl"><svg class="h-4 w-4"><use href="#i-dl"/></svg></a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="border-t border-edge bg-panel/60">
+  <div class="wrap grid gap-8 py-10 md:grid-cols-2">
+    <div>
+      <h2 class="font-ui text-[.78rem] font-bold tracking-[.2em] !text-accent">Aviso</h2>
+      <p class="mt-3 text-sm leading-relaxed text-slate-400">Protótipos de divulgação científica e maker. Os valores dos simuladores são hipóteses didáticas, não substituem medições nem dispositivos certificados. Valide tudo em bancada antes de instalar.</p>
+    </div>
+    <div>
+      <h2 class="font-ui text-[.78rem] font-bold tracking-[.2em] !text-accent">Privacidade</h2>
+      <p class="mt-3 text-sm leading-relaxed text-slate-400">Sem cookies, análise ou publicidade. O navegador guarda no localStorage apenas o estado “bloqueado” dos simuladores de água e gás. As fontes vêm do Google Fonts, o que envia o endereço IP a esse servidor. Na hospedagem, dados técnicos de acesso também podem ser registrados.</p>
+    </div>
+  </div>
+  <div class="border-t border-edge">
+    <div class="wrap flex flex-wrap items-center justify-between gap-3 py-4 font-mono text-[.66rem] font-semibold uppercase tracking-[.14em] text-slate-600">
+      <span>Válvula 10 mm · Central de projetos</span>
+      <span class="flex items-center gap-2"><span class="block h-1.5 w-1.5 rounded-full bg-ok"></span>Malha fechada</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/vendor/three.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/viewer.js"></script>
+</body>
+</html>
